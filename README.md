@@ -2,95 +2,82 @@
 
 ## 🚀 **Getting Started**
 
-This repository contains python module that uses User Datagram Protocol to send out requests to a server and can expect to receive one or more responses. The server waits for incoming UDP packets on a specified port, and the client sends UDP packets to the server on the same port.
+This repository contains python module that uses User Datagram Protocol to send out requests to a server and can expect to receive one or more responses. The server waits for incoming UDP packets on a specified port, and the client sends UDP packets to the server on the same port. 
+
+The Base64 algorithm generates strings that are safe to transport between any two computers that implement the Base64 algorithm. Base64 is a binary to text encoding technique. Firstly, the text to be encoded is converted to the corresponding decimal value in accordance with the ASCII table; next, the newly obtained decimal value is converted to its binary equivalent. All of the equivalent binary numbers are concatenated to obtain a large number of binary numbers; then, the entire set of binary numbers is divided into equal parts, each containing only 6 bytes. The equal set of 6 bytes is converted Base64 decoding which is the opposite of Base64 encoding; it is accomplished by carrying out the encoding procedures backwards.
+
 
 ### **UDP Packet Format**
-![header](https://www.gatevidyalay.com/wp-content/uploads/2018/10/UDP-Header.png)
+A UDP packet is made up of a header and a data seciton (the payload).The header, 8 bytes in size, consists of 4 fields, each 2 bytes, and is defined as:
 
-- The port on the machine sending the data is called the source port. If the destination computer doesn't need to respond to the sender, this field can be set to zero.
-- Port that will receive the data is called the destination port. The range of UDP port numbers is 0 to 65,535.
-- Length indicates how many bytes make up the UDP payload data and header. The underlying IP protocol used to transport the data sets the limit for the UDP length field.
-- To enable use with servers other than the Base64-encoded UDP defaults, a checksum calculator was created. A checksum calculator makes sure there are no transmission errors. 
+![header](https://media.geeksforgeeks.org/wp-content/uploads/UDP-header.png)
 
-## Add your files
+- The port on the machine sending the data is called the **source port**. If the destination computer doesn't need to respond to the sender, this field can be set to zero.
+- Port that will receive the data is called the **destination port**. The range of UDP port numbers is 0 to 65,535.
+- **Length** indicates how many bytes make up the UDP payload data and header. The underlying IP protocol used to transport the data sets the limit for the UDP length field.
+- To enable use with servers other than the Base64-encoded UDP defaults, a **checksum calculator** was created. The checksum starts at 0 and is then converted into an integer while indicating the binary values of the ports and payload using the bytes. These binary numbers are summed after their combination, and the One's complement of this sum is then determined. A checksum calculator makes sure there are no transmission errors. 
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## 🖥️ **How to Run**
+0. Ensure you have [python3](https://www.python.org/download/releases/3.0/) installed.
+   
+   At a command prompt, type `python --version` to ensure you have version 3.
+0. Also ensure you have base64, struct and time imported.
+1. Download or clone this repository.
+   
+   If you download as a zip file, be sure to unzip it.
+2. Run udp.py to talk to server.
 
-```
-cd existing_repo
-git remote add origin https://gitlab.uwe.ac.uk/s2-fidan/worksheet3.git
-git branch -M main
-git push -uf origin main
-```
+## 🎯 **Features**
 
-## Integrate with your tools
+**Receving and decoding packet:** Basic client to receive message from the UDP server and decode it, without error‐checking.
 
-- [ ] [Set up project integrations](https://gitlab.uwe.ac.uk/s2-fidan/worksheet3/-/settings/integrations)
+**Validating checksum:** Checking if packet is valid with comparing checksum from received packet against to checksum supplied in packet header.
 
-## Collaborate with your team
+**Sending and receiving UDP packet from server:** Sending a valued UDP packet to the server, with the payload 1111, and waiting to receive the time back, and then sleeping for 1 sec and repeating.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+## 🖇️ **Example Usage**
 
-## Test and Deploy
+📍 Udp.py
 
-Use the built-in continuous integration in GitLab.
+![udp](images/udp_packet.png)
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
-***
+## 💡 **Unit Testing**
+📍 Udpunit.py
 
-# Editing this README
+Program has a unit testing to checksum validation:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Assert Function | Checksum validation | Output |Comparison | Pass/Fail
+-------------   | ------------- | ------------- | ------------- | ------------- | 
+assertEqual() | 10, 42, Welcome to IoT UDP Server | 15307 | True, payload is correct | Pass
+assertEqual() | 5678,1234, hello| 1234, 5678, hello |True, sum of source and destination ports are the same | Pass
+assertNotEqual() | 10,42, Welcome to the Server | 15307 | False, payload is not correct | Pass
+assertNotEqual() | 1234,5678, hello | 5688, 1234, hello | False, sum of source and destination ports are not same | Pass
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+After running all tests expected output:
 
-## Name
-Choose a self-explaining name for your project.
+![printing unit testing](images/udp_unit_testing.png)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## 📚 **Library** 
+Here is the library for unit testing: [unittest](https://docs.python.org/3/library/unittest.html)
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## 📪 **Installation** 
+1. If you do not have [websocket](https://pypi.org/project/websocket-client/) installed: 
+   
+   At a command prompt, type `python3 setup.py install` or `pip3 install websocket-client` to install.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+2. If you do not have [base64](https://pypi.org/project/pybase64/) installed: 
+   
+   At a command prompt, type `pip install pybase64` to install.
+3. If you do not have [struct](https://pypi.org/project/supyr-struct/) installed: 
+   
+   At a command prompt, type `python3 -m pip install supyr_struct` to install.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## 🤓 **Maintainers** 
+Sude Fidan(@s2-fidan)
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## 📖  **Referencing** 
+* https://www.imperva.com/learn/ddos/udp-user-datagram-protocol/
+* https://www.fortinet.com/resources/cyberglossary/user-datagram-protocol-udp
+* https://en.wikipedia.org/wiki/User_Datagram_Protocol

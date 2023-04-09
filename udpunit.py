@@ -1,5 +1,5 @@
 import unittest
-import worksheet3.udp as udp
+import udp
 
 class TestDpd(unittest.TestCase):
     def test_checksum(self):
