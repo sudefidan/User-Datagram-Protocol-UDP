@@ -1,12 +1,16 @@
-# worksheet3
+# **WORKSHEET3 - User Datagram Protocol (UDP)**
 
+## 🚀 **Getting Started**
 
+This repository contains python module that uses User Datagram Protocol to send out requests to a server and can expect to receive one or more responses. The server waits for incoming UDP packets on a specified port, and the client sends UDP packets to the server on the same port.
 
-## Getting started
+### **UDP Packet Format**
+![header](https://www.gatevidyalay.com/wp-content/uploads/2018/10/UDP-Header.png)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- The port on the machine sending the data is called the source port. If the destination computer doesn't need to respond to the sender, this field can be set to zero.
+- Port that will receive the data is called the destination port. The range of UDP port numbers is 0 to 65,535.
+- Length indicates how many bytes make up the UDP payload data and header. The underlying IP protocol used to transport the data sets the limit for the UDP length field.
+- To enable use with servers other than the Base64-encoded UDP defaults, a checksum calculator was created. A checksum calculator makes sure there are no transmission errors. 
 
 ## Add your files
 
