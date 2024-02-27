@@ -1,4 +1,4 @@
-# **WORKSHEET3 - User Datagram Protocol (UDP)**
+# **User Datagram Protocol (UDP)**
 
 ## 🚀 **Getting Started**
 
@@ -75,7 +75,7 @@ Here is the library for unit testing: [unittest](https://docs.python.org/3/libra
 
 
 ## 🤓 **Maintainers** 
-Sude Fidan(@s2-fidan)
+Sude Fidan(@sudefidan)
 
 ## 📖  **Referencing** 
 * https://www.imperva.com/learn/ddos/udp-user-datagram-protocol/
